@@ -158,7 +158,7 @@ RUN bash -x /src/build.sh \
       --enable-encoder=libx264,mpeg4 \
       --enable-muxer=h264,mp4 \
       --enable-protocol=file \
-      --enable-filter=scale,crop \
+      --enable-filter=scale,crop,null,anullsrc,anullsink,nullsink \
       --enable-gpl \
       --enable-libx264
 
