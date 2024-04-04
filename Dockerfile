@@ -153,8 +153,6 @@ COPY build/ffmpeg.sh /src/build.sh
 RUN bash -x /src/build.sh \
       --enable-gpl \
       --enable-libx264 \
-      --enable-libzimg \
-      --disable-filters \
       --enable-filter=scale \
       --enable-filter=crop
 
@@ -165,9 +163,7 @@ COPY src/fftools /src/src/fftools
 COPY build/ffmpeg-wasm.sh build.sh
 # libraries to link
 ENV FFMPEG_LIBS \
-      -lx264 \
-      -lz \
-      -lzimg
+      -lx264
 RUN mkdir -p /src/dist/umd && bash -x /src/build.sh \
       ${FFMPEG_LIBS} \
       -o dist/umd/ffmpeg-core.js
