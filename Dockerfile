@@ -152,9 +152,9 @@ FROM ffmpeg-base AS ffmpeg-builder
 COPY build/ffmpeg.sh /src/build.sh
 RUN bash -x /src/build.sh \
       --disable-everything \
-      --enable-decoder=gif,h264,mpeg4,webm \
-      --enable-demuxer=gif,h264,mov,m4v,webm \
-      --enable-parser=gif,h264,mpeg4video,mpegvideo,webm \
+      --enable-decoder=gif,h264,mpeg4,webm,hevc \
+      --enable-demuxer=gif,h264,mov,m4v,webm,hevc \
+      --enable-parser=gif,h264,mpeg4video,mpegvideo,webm,hevc \
       --enable-encoder=libx264,mpeg4 \
       --enable-muxer=h264,mp4 \
       --enable-protocol=file \
