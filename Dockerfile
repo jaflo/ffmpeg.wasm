@@ -153,18 +153,11 @@ COPY build/ffmpeg.sh /src/build.sh
 RUN bash -x /src/build.sh \
       --enable-gpl \
       --enable-libx264 \
-      --enable-libx265 \
-      --enable-libvpx \
-      --enable-libmp3lame \
-      --enable-libtheora \
-      --enable-libvorbis \
-      --enable-libopus \
       --enable-zlib \
-      --enable-libwebp \
-      --enable-libfreetype \
-      --enable-libfribidi \
-      --enable-libass \
-      --enable-libzimg 
+      --enable-libzimg \
+      --disable-filters \
+      --enable-filter=scale \
+      --enable-filter=crop
 
 # Build ffmpeg.wasm
 FROM ffmpeg-builder AS ffmpeg-wasm-builder
@@ -174,24 +167,7 @@ COPY build/ffmpeg-wasm.sh build.sh
 # libraries to link
 ENV FFMPEG_LIBS \
       -lx264 \
-      -lx265 \
-      -lvpx \
-      -lmp3lame \
-      -logg \
-      -ltheora \
-      -lvorbis \
-      -lvorbisenc \
-      -lvorbisfile \
-      -lopus \
-      -lz \
-      -lwebpmux \
-      -lwebp \
-      -lsharpyuv \
-      -lfreetype \
-      -lfribidi \
-      -lharfbuzz \
-      -lass \
-      -lzimg
+      -lz
 RUN mkdir -p /src/dist/umd && bash -x /src/build.sh \
       ${FFMPEG_LIBS} \
       -o dist/umd/ffmpeg-core.js
