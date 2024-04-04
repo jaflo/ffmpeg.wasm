@@ -151,10 +151,14 @@ COPY --from=zimg-builder $INSTALL_DIR $INSTALL_DIR
 FROM ffmpeg-base AS ffmpeg-builder
 COPY build/ffmpeg.sh /src/build.sh
 RUN bash -x /src/build.sh \
+      --disable-everything \
+      --enable-decoder=gif \
+      --enable-demuxer=gif \
+      --enable-muxer=h264,mp4 \
+      --enable-protocol=file \
+      --enable-filter=scale,crop \
       --enable-gpl \
-      --enable-libx264 \
-      --enable-filter=scale \
-      --enable-filter=crop
+      --enable-libx264
 
 # Build ffmpeg.wasm
 FROM ffmpeg-builder AS ffmpeg-wasm-builder
